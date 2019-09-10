@@ -1,7 +1,7 @@
 """
 Rock, Scissors, Paper
 
-Group members:
+Group members: Rahul, Ethan, Mark, and Andre
 """
 
 
