@@ -6,29 +6,44 @@ def main():
     # HACK: Throws error if cv2.CAP_DSHOW is not present and I am not sure why.
 
     fist_cascade = cv2.CascadeClassifier('fist.xml')
+    palm_cascade = cv2.CascadeClassifier('palm_v4.xml')
     # This haar-cascade was taken from https://github.com/Balaje/OpenCV/blob/master/haarcascades/fist.xml.
     # We may need to generate our own for paper and scissors.
+    tolerance_level = []  # This is a queue
 
     while(True):
 
-        # Capture frame
         ret, frame = cap.read()
-        # Convert to grayscale
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-        # Don't actually need as a numpy array right now, I think
-        fist_contours = np.array(fist_cascade.detectMultiScale(gray, 1.5, 2))
-        if fist_contours:
+        palm_contours = palm_cascade.detectMultiScale3(gray, scaleFactor=1.2, minNeighbors=5, outputRejectLevels=True)
+        fist_contours = fist_cascade.detectMultiScale3(gray, scaleFactor=1.2, minNeighbors=5, outputRejectLevels=True)
+        print(palm_contours)
+        print(fist_contours)
+        cv2.imshow('Camera', gray)
+        if type(palm_contours[2] != tuple):
+            try:  # HACK
+                if palm_contours[2][0] >= 1:
+                    tolerance_level.append('P')
+            except IndexError:
+                pass
+        if type(fist_contours[2] != tuple):
+            try:
+                if fist_contours[2][0] >= 2:
+                    tolerance_level.append('R')
+            except IndexError:
+                pass
+        if len(tolerance_level) >= 6:
+            tolerance_level = tolerance_level[:6]
+        if len(tolerance_level) == 5 and len(set(tolerance_level)) == 1:
             cap.release()
             cv2.destroyAllWindows()
-            return "R"  # For rock
+            return(tolerance_level[0])
 
-        # Display frame
-        cv2.imshow('Camera', frame)
+        print(tolerance_level)
 
-    # Quit on 'q'
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        # Quit on 'q'
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
     cap.release()
     cv2.destroyAllWindows()
     return
