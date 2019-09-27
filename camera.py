@@ -22,21 +22,26 @@ def main():
         print(palm_contours)
         print(fist_contours)
         cv2.imshow('Camera', gray)
-        try:  # HACK
-            if palm_contours[2][0] >= 1:
-                tolerance_level.append('P')
-        except IndexError:
-            pass
-        try:
-            if fist_contours[2][0] >= 2:
-                tolerance_level.append('R')
-        except IndexError:
-            pass
-        try:
-            if fing_contours[2][0] >= 2.1:
-                tolerance_level.append('S')
-        except IndexError:
-            pass
+        while True:
+            try:  # HACK
+                if palm_contours[2][0] >= 0.9:
+                    tolerance_level.append('P')
+                    break
+            except IndexError:
+                pass
+            try:
+                if fist_contours[2][0] >= 2:
+                    tolerance_level.append('R')
+                    break
+            except IndexError:
+                pass
+            try:
+                if fing_contours[2][0] >= 2.2:
+                    tolerance_level.append('S')
+                    break
+                break
+            except IndexError:
+                break
         if len(tolerance_level) >= 6:
             tolerance_level = tolerance_level[1:7]
         if len(tolerance_level) == 5 and len(set(tolerance_level)) == 1:
