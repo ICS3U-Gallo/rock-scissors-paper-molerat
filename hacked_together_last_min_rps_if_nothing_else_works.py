@@ -64,7 +64,7 @@ class Form(QDialog):
           self.computer_wins += 1 
         self.games_played += 1
         result = {1: "LOSE", 0: "TIE", -1: "WIN"}[winner] # MASSIVE HACK
-        self.win_lose_text.setText(f"You played a {get_full_move_name(human_move).upper()} and the computer played {get_full_move_name(computer_move).upper()} which means you {result}!\n\nComputer wins: {self.computer_wins}\nHuman wins: {self.human_wins}\nGames played: {self.games_played}")
+        self.win_lose_text.setText(f"You played {get_full_move_name(human_move).upper()} and the computer played {get_full_move_name(computer_move).upper()} which means you {result}!\n\nComputer wins: {self.computer_wins}\nHuman wins: {self.human_wins}\nGames played: {self.games_played}")
         self.win_lose_text.adjustSize()
 
 if __name__ == '__main__':
