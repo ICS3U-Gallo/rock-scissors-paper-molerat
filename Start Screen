@@ -4,7 +4,7 @@ import arcade
 WIDTH = 640
 HEIGHT = 480
 
-my_button = [275, 125, 75, 75]
+my_button = [275, 80, 75, 75]
 show_text = False
 
 center_x = 130      
