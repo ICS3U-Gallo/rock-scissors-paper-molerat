@@ -4,32 +4,53 @@ import sys
 from PySide2.QtCore import QObject, Signal, Slot 
 from PySide2.QtWidgets import * # QApplication, QDialog, QLineEdit, QPushButton, QLabel
 
+games = 0
+
+def good_games():
+
+   games = int(input("Please say how many games you would like to play: ")
+
+   if games == 0:
+      print("Ok, see you later")
+      return
+      
+   if games < 0:
+      raise ValueError("Try typing that again.")
+      good_games()
+      
+   else:
+      raise ValueError("Try typing that again.")
+      good_games()
+
 def get_full_move_name(letter: str) -> str:
     return {"R": "rock", "P": "paper", "S": "scissors"}[letter]
 
 def get_match_winner(human: str, computer: str) -> bool:
   """Determine the winner of a match of RPS. Returns -1 if the human won, 0 if tie, and 1 if computer won."""
-  
-  if human not in ["R","P","S"] or computer not in ["R","P","S"]:
-    raise ValueError("Inputs must be either 'R', 'P', or 'S'!")
+  for games > 0:
+    
+    games = games - 1
+               
+    if human not in ["R","P","S"] or computer not in ["R","P","S"]:
+        raise ValueError("Inputs must be either 'R', 'P', or 'S'!")
 
-  if human == computer:
-    return 0
+    if human == computer:
+        return 0
 
-  if human == "R":
-    if computer == "S":
-      return -1
-    return 1
+    if human == "R":
+        if computer == "S":
+        return -1
+        return 1
   
-  if human == "P":
-    if computer == "R":
-      return -1
-    return 1
+    if human == "P":
+        if computer == "R":
+        return -1
+        return 1
   
-  if human == "S":
-    if computer == "P":
-      return -1
-    return 1
+    if human == "S":
+        if computer == "P":
+        return -1
+        return 1
 
 def get_computer_move() -> str:
     """Generates a move to be played by the computer."""
