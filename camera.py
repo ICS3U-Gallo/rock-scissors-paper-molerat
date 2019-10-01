@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 
+
 def main():
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     # HACK: Throws error if cv2.CAP_DSHOW is not present and I am not sure why.
@@ -8,7 +9,7 @@ def main():
     fist_cascade = cv2.CascadeClassifier('fist.xml')
     palm_cascade = cv2.CascadeClassifier('palm_v4.xml')
     fing_cascade = cv2.CascadeClassifier('finger.xml')
-    # This haar-cascade was taken from https://github.com/Balaje/OpenCV/blob/master/haarcascades/fist.xml.
+    # https://github.com/Balaje/OpenCV/blob/master/haarcascades/fist.xml.
     # We may need to generate our own for paper and scissors.
     tolerance_level = []  # This is a queue
 
@@ -16,9 +17,21 @@ def main():
 
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        palm_contours = palm_cascade.detectMultiScale3(gray, scaleFactor=1.2, minNeighbors=5, outputRejectLevels=True)
-        fist_contours = fist_cascade.detectMultiScale3(gray, scaleFactor=1.2, minNeighbors=5, outputRejectLevels=True)
-        fing_contours = fing_cascade.detectMultiScale3(gray, scaleFactor=1.2, minNeighbors=5, outputRejectLevels=True)
+        palm_contours = palm_cascade.detectMultiScale3(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            outputRejectLevels=True)
+        fist_contours = fist_cascade.detectMultiScale3(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            outputRejectLevels=True)
+        fing_contours = fing_cascade.detectMultiScale3(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            outputRejectLevels=True)
         print(palm_contours)
         print(fist_contours)
         cv2.imshow('Camera', gray)
