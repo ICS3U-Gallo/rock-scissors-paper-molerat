@@ -48,7 +48,7 @@ def calibrateWithNewImages():
 
         if k == 99:
 
-            if (not rock and rockCount != 5):
+            if (not rock):
                 cv2.imwrite("./rock/" + str(rockCount) +".jpg", roi)
                 rockCount += 1
                 print ("Picture " + str(rockCount) + " taken!")
@@ -56,15 +56,15 @@ def calibrateWithNewImages():
                 if rockCount == 5:
                     rock = True
             
-            elif (not paper and paperCount != 5):
+            elif (not paper):
                 cv2.imwrite("./paper/" + str(paperCount) + ".jpg", roi)
                 paperCount += 1
                 print ("Picture " + str(paperCount) + " taken!")
 
                 if paperCount == 5:
-                    paper = 5
+                    paper = True
 
-            elif (not scissor and scissorsPrinted != 5):
+            elif (not scissor):
                 cv2.imwrite("./scissors/" + str(scissorCount) + ".jpg", roi)
                 scissorCount += 1
                 print ("Picture " + str(scissorsPrinted) + " taken!")
